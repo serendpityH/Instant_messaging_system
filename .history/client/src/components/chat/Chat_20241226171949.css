@@ -1,0 +1,809 @@
+.chat-container {
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  box-shadow: none;
+  border-radius: 0;
+  position: relative;
+  padding-top: 0;
+}
+
+.chat-container.has-error {
+  padding-top: 40px;
+}
+
+.users-list {
+  width: 250px;
+  background-color: #f5f5f5;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.users-list h3 {
+  padding: 15px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-item {
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.user-item:hover {
+  background-color: #e9ecef;
+}
+
+.user-item.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.chat-header {
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+  z-index: 1;
+}
+
+.chat-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.messages-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.message {
+  margin-bottom: 15px;
+  max-width: 70%;
+}
+
+.message.sent {
+  margin-left: auto;
+}
+
+.message.received {
+  margin-right: auto;
+}
+
+.message-content {
+  padding: 10px 15px;
+  border-radius: 15px;
+  background-color: #f0f0f0;
+  word-wrap: break-word;
+}
+
+.message.sent .message-content {
+  background-color: #007bff;
+  color: white;
+}
+
+.message-time {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+  text-align: right;
+}
+
+.message-form {
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #ddd;
+  display: flex;
+  gap: 10px;
+}
+
+.message-form input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.message-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.message-form button:hover {
+  background-color: #0056b3;
+}
+
+.no-chat-selected {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 18px;
+}
+
+.message-form input:disabled,
+.message-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.key-management-button {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  margin-top: auto;
+}
+
+.key-management-button button {
+  width: 100%;
+  padding: 8px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.key-management-button button:hover {
+  background-color: #5a6268;
+}
+
+/* 添加群组相关样式 */
+.list-section {
+  margin-bottom: 20px;
+}
+
+.list-section h3 {
+  padding: 10px 15px;
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  background-color: #f5f5f5;
+}
+
+.list-item {
+  position: relative;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.list-item:hover {
+  background-color: #e9ecef;
+}
+
+.list-item.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.list-header {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.list-header:first-child {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.list-header:first-child button {
+  width: 100%;
+  padding: 8px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.list-header:first-child button:hover {
+  background-color: #5a6268;
+}
+
+.list-header:not(:first-child) button {
+  flex: 1;
+  padding: 8px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.list-header:not(:first-child) button:hover {
+  background-color: #218838;
+}
+
+.message-sender {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.message.sent .message-sender {
+  text-align: right;
+}
+
+.available-groups {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.available-group-item {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-info {
+  flex: 1;
+}
+
+.group-info h4 {
+  margin: 0 0 5px 0;
+}
+
+.group-info p {
+  margin: 0 0 5px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.group-info small {
+  color: #999;
+}
+
+.available-group-item button {
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.available-group-item button:hover {
+  background-color: #0056b3;
+}
+
+.no-groups {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.modal-footer {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.message-alert {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  border-radius: 6px;
+  z-index: 1001;
+  animation: slideDown 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.message-alert.error {
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+  color: #ff4d4f;
+}
+
+.message-alert.success {
+  background-color: #f6ffed;
+  border: 1px solid #b7eb8f;
+  color: #52c41a;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+/* 修改模态框样式，添加过渡效果 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: modalFadeIn 0.3s ease;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 300px;
+  max-width: 500px;
+  animation: modalContentSlideIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalContentSlideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.review-button {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.review-button:hover {
+  background-color: #e0a800;
+}
+
+.pending-members {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.pending-member-item {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.member-info h4 {
+  margin: 0 0 5px 0;
+}
+
+.member-info p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.approval-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.approval-buttons button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.approval-buttons button.approve {
+  background-color: #28a745;
+  color: white;
+}
+
+.approval-buttons button.reject {
+  background-color: #dc3545;
+  color: white;
+}
+
+.approval-buttons button:hover.approve {
+  background-color: #218838;
+}
+
+.approval-buttons button:hover.reject {
+  background-color: #c82333;
+}
+
+.no-pending {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.group-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-info-header h3 {
+  margin: 0;
+}
+
+.group-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.members-button {
+  padding: 6px 12px;
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.members-button:hover {
+  background-color: #138496;
+}
+
+.members-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.member-item {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.member-item:last-child {
+  border-bottom: none;
+}
+
+.member-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.member-info h4 {
+  margin: 0;
+}
+
+.member-role {
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background-color: #e9ecef;
+}
+
+.member-role:empty {
+  display: none;
+}
+
+.member-join-time {
+  font-size: 12px;
+  color: #666;
+}
+
+.pending-review-icon {
+  display: none;
+}
+
+.review-button {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.review-button:hover {
+  background-color: #e0a800;
+}
+
+.group-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.members-button,
+.review-button {
+  height: 32px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.group-management {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.leave-button,
+.disband-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.leave-button {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.disband-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.leave-button:hover {
+  background-color: #e0a800;
+}
+
+.disband-button:hover {
+  background-color: #c82333;
+}
+
+.modal-footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.member-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.remove-member-button {
+  padding: 4px 8px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.remove-member-button:hover {
+  background-color: #c82333;
+}
+
+.member-item {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.member-item:last-child {
+  border-bottom: none;
+}
+
+/* 添加个人信息按钮样式 */
+.user-profile-button {
+  display: none;
+}
+
+/* 添加新的个人信息相关样式 */
+.profile-container {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto;
+}
+
+.profile-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.profile-form .form-group {
+  margin-bottom: 20px;
+}
+
+.profile-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #495057;
+  font-weight: 500;
+}
+
+.profile-form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.profile-form input:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.profile-actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.profile-actions button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile-actions button:hover {
+  background-color: #0056b3;
+}
+
+/* 添加用户列表头部样式 */
+.user-header {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-header h3 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+/* 修改列表内容区域样式，使其可滚动 */
+.list-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 10px;
+}
+
+/* 底部退出按钮容器 */
+.logout-container {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  background-color: #f5f5f5;
+}
+
+.logout-button {
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin: 0;
+}
+
+.logout-button:hover {
+  background: linear-gradient(135deg, #c0392b, #a93226);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+}
+
+.logout-button:active {
+  transform: translateY(0);
+}
+
+/* 修改个人信息部分的样式 */
+.profile-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.profile-actions button {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(41, 128, 185, 0.2);
+}
+
+/* 修改密码模态框样式 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h3 {
+  margin: 0 0 20px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.button-group button {
+  flex: 1;
+  padding: 10px;
+}
+
+.button-group button[type="button"] {
+  background: #95a5a6;
+}
+
+.button-group button[type="button"]:hover {
+  background: #7f8c8d;
+}

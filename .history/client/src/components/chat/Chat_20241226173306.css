@@ -1,0 +1,251 @@
+.chat-container {
+  display: flex;
+  height: 100vh;
+  background-color: #fff;
+}
+
+/* 左侧用户列表样式 */
+.users-list {
+  width: 280px;
+  background-color: #fff;
+  border-right: 1px solid #e6e6e6;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-header {
+  padding: 20px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.list-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+/* 搜索框样式 */
+.search-container {
+  padding: 15px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #e6e6e6;
+  border-radius: 20px;
+  background-color: #f5f7f9;
+  font-size: 14px;
+}
+
+.search-container input:focus {
+  outline: none;
+  border-color: #26c6da;
+}
+
+/* 用户列表项样式 */
+.list-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.list-item {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.list-item:hover {
+  background-color: #f5f7f9;
+}
+
+.list-item.selected {
+  background-color: #e3f2fd;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #26c6da;
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 500;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.user-status {
+  font-size: 12px;
+  color: #666;
+}
+
+.user-status.online::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+/* 聊天主界面样式 */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+/* 消息区域样式 */
+.messages-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #f5f7f9;
+}
+
+.message {
+  margin-bottom: 20px;
+  max-width: 70%;
+}
+
+.message.sent {
+  margin-left: auto;
+}
+
+.message.received {
+  margin-right: auto;
+}
+
+.message-content {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.message.sent .message-content {
+  background-color: #26c6da;
+  color: white;
+}
+
+.message-time {
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+  text-align: right;
+}
+
+/* 输入框区域样式 */
+.message-form {
+  padding: 20px;
+  background-color: #fff;
+  border-top: 1px solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.message-form input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #e6e6e6;
+  border-radius: 20px;
+  font-size: 14px;
+  background-color: #f5f7f9;
+}
+
+.message-form input:focus {
+  outline: none;
+  border-color: #26c6da;
+}
+
+.message-form button {
+  padding: 12px 24px;
+  background-color: #26c6da;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.message-form button:hover {
+  background-color: #00acc1;
+}
+
+/* 工具栏按钮样式 */
+.toolbar {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.toolbar button {
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.toolbar button:hover {
+  background-color: #f5f7f9;
+  color: #26c6da;
+}
+
+/* 修改现有的退出按钮样式 */
+.logout-container {
+  padding: 15px;
+  border-top: 1px solid #e6e6e6;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #f5f7f9;
+  color: #666;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.logout-button:hover {
+  background-color: #ff5252;
+  color: white;
+}
