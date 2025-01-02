@@ -1,0 +1,260 @@
+/* 聊天容器 - 作为整个聊天界面的最外层容器 */
+.chat-container {
+  display: flex; /* 使用flex布局 */
+  height: 100vh; /* 占满整个视口高度 */
+  background-color: #fff; /* 白色背景 */
+}
+
+
+/* 左侧导航栏样式 */
+/* 左侧导航栏样式 */
+.nav-sidebar {
+  width: 6.25%; /* 1/16 */
+  background-color: #f5f7f9;
+  border-right: 1px solid #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  order: -1;
+}
+
+/* 导航项基础样式 */
+.nav-item {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+/* 用户图标使用图片 */
+.nav-item.profile {
+  background: url('/public/user.png') no-repeat center;
+  background-size: contain;
+}
+
+/* 群组图标使用 CSS 创建 */
+.nav-item.group {
+  background-color: transparent;
+}
+
+/* 群组图标的主体部分 */
+.nav-item.group::before {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: #666;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* 群组图标激活状态 */
+.nav-item.group.active::before {
+  background-color: #26c6da;
+}
+
+/* 聊天图标基础样式 */
+.nav-item.chat {
+  background-color: transparent;
+  position: relative;
+}
+
+/* 聊天图标的主体部分 */
+.nav-item.chat::before {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: #666;
+  border-radius: 4px;
+  transform: rotate(45deg);
+  transition: all 0.3s ease;
+}
+
+/* 聊天图标的小方块装饰 */
+.nav-item.chat::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #666;
+  border-radius: 2px;
+  bottom: 2px;
+  right: 2px;
+  transform: rotate(45deg);
+  transition: all 0.3s ease;
+}
+
+/* 聊天图标激活状态 */
+.nav-item.chat.active::before,
+.nav-item.chat.active::after {
+  background-color: #26c6da;
+}
+
+/* 聊天图标悬停动画 */
+.nav-item.chat:hover::before,
+.nav-item.chat:hover::after {
+  transform: rotate(45deg) scale(1.1);
+}
+
+/* 登出图标基础样式 */
+.nav-item.logout {
+  margin-top: auto;
+  position: relative;
+}
+
+/* 登出图标的圆形边框 */
+.nav-item.logout::before {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ff5252;
+  border-radius: 50%;
+}
+
+/* 登出图标的箭头部分 */
+.nav-item.logout::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid #ff5252;
+  border-right: 2px solid #ff5252;
+  transform: rotate(45deg);
+  right: 8px;
+}
+
+/* 导航项激活状态通用样式 */
+.nav-item.active::before {
+  background-color: #26c6da;
+}
+
+/* 导航项悬停效果 */
+.nav-item:hover::before {
+  transform: scale(1.1);
+}
+
+/* 中间列表区域样式 */
+.list-sidebar {
+  width: 18.75%; /* 3/16 */
+  border-right: 1px solid #e6e6e6;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 列表头部样式 */
+.list-header {
+  padding: 20px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+/* 列表标题样式 */
+.list-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+}
+
+/* 搜索容器样式 */
+.search-container {
+  padding: 15px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+/* 搜索输入框样式 */
+.search-container input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #e6e6e6;
+  border-radius: 20px;
+  background-color: #f5f7f9;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+/* 搜索输入框焦点状态 */
+.search-container input:focus {
+  outline: none;
+  border-color: #26c6da;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(38, 198, 218, 0.1);
+}
+
+/* 搜索输入框占位符样式 */
+.search-container input::placeholder {
+  color: #999;
+}
+
+/* 主聊天区域样式 */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 列表项基础样式 */
+.list-item {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* 列表项悬停效果 */
+.list-item:hover {
+  background-color: #f5f7f9;
+}
+
+/* 列表项选中状态 */
+.list-item.selected {
+  background-color: #e3f2fd;
+}
+
+/* 错误状态下的聊天容器样式 */
+.chat-container.has-error {
+  padding-top: 40px;
+}
+
+/* 用户列表基础样式 */
+.users-list {
+  width: 250px;
+  background-color: #f5f5f5;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* 用户列表标题样式 */
+.users-list h3 {
+  padding: 15px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 用户列表项样式 */
+.user-item {
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* 用户列表项悬停效果 */
+.user-item:hover {
+  background-color: #e9ecef;
+}
+
+/* 用户列表项选中状态 */
+.user-item.selected {
+  background-color: #007bff;
+  color: white;
+}

@@ -1,0 +1,32 @@
+/* 消息样式 */
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin: 15px 20px;
+  gap: 12px;
+}
+
+/* ... 其他样式 ... */
+
+/* 发送按钮样式 */
+.message-form button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent url('/sendMessage.png') no-repeat center;
+  background-size: 24px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.message-form button:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+/* 移除原来的文字内容 */
+.message-form button::before {
+  content: '';
+} 

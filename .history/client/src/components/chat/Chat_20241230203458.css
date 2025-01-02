@@ -1,0 +1,1665 @@
+/* 聊天容器 - 作为整个聊天界面的最外层容器 */
+.chat-container {
+  /* 使用flex布局 */
+  height: 100vh;
+  /* 占满整个视口高度 */
+  background-color: #fff;
+  /* 白色背景 */;
+  display: flex;
+}
+
+/* 左侧导航栏样式 */
+.nav-sidebar {
+  /* 上下内边距20px */
+  order: -1;
+  /* 右侧边框分隔线 */
+  display: flex;
+  /* 垂直排列子元素 */
+  align-items: center;
+  /* 水平居中对齐 */
+  padding: 20px 0;
+  /* 浅灰色背景 */
+  border-right: 1px solid #e6e6e6;
+  /* 确保导航栏始终显示在最左侧 */;
+  /* 设置宽度为视窗的1/16 */
+  background-color: #f5f7f9;
+  flex-direction: column;
+  width: 6.25%;
+}
+
+.nav-item {
+  /* 垂直居中对齐 */
+  justify-content: center;
+  /* 底部外边距 */
+  display: flex;
+  /* 水平居中对齐 */
+  cursor: pointer;
+  /* 相对定位 */;
+  /* 鼠标指针样式为手型 */
+  position: relative;
+  align-items: center;
+  height: 32px;
+  margin-bottom: 30px;
+  width: 32px;
+}
+
+/* 用户图标使用图片 */
+.nav-item.profile {
+  background-size: contain;
+  background: url('/public/user.png') no-repeat center;
+}
+
+/* 群组图标使用 CSS 创建 */
+.nav-item.group {
+  background-color: transparent;
+}
+
+/* 群组图标样式 */
+.nav-item.group::before {
+  /* 伪元素内容为空 */
+  position: absolute;
+  /* 圆角 */
+  transition: all 0.3s ease;
+  /* 宽度 */
+  height: 24px;
+  /* 绝对定位 */
+  width: 24px;
+  /* 背景颜色 */
+  border-radius: 8px;
+  /* 过渡效果 */;
+  /* 高度 */
+  background-color: #666;
+  content: '';
+}
+
+.nav-item.group.active::before {
+  /* 激活状态下的背景颜色 */;
+  background-color: #26c6da;
+}
+
+/* 聊天图标样式 */
+.nav-item.chat {
+  /* 相对定位 */;
+  /* 透明背景 */
+  position: relative;
+  background-color: transparent;
+}
+
+.nav-item.chat::before {
+  /* 伪元素内容为空 */
+  position: absolute;
+  /* 圆角 */
+  transform: rotate(45deg);
+  /* 宽度 */
+  height: 24px;
+  /* 旋转45度 */
+  transition: all 0.3s ease;
+  /* 绝对定位 */
+  width: 24px;
+  /* 背景颜色 */
+  border-radius: 4px;
+  /* 过渡效果 */;
+  /* 高度 */
+  background-color: #666;
+  content: '';
+}
+
+.nav-item.chat::after {
+  /* 伪元素内容为空 */
+  position: absolute;
+  /* 右侧偏移 */
+  transform: rotate(45deg);
+  /* 圆角 */
+  bottom: 2px;
+  /* 宽度 */
+  height: 10px;
+  /* 底部偏移 */
+  right: 2px;
+  /* 旋转45度 */
+  transition: all 0.3s ease;
+  /* 绝对定位 */
+  width: 10px;
+  /* 背景颜色 */
+  border-radius: 2px;
+  /* 过渡效果 */;
+  /* 高度 */
+  background-color: #666;
+  content: '';
+}
+
+.nav-item.chat:hover::before,
+.nav-item.chat:hover::after {
+  /* 悬停时的动画效果 */;
+  transform: rotate(45deg) scale(1.1);
+}
+
+/* 登出图标使用 CSS 创建 */
+.nav-item.logout {
+  margin-top: auto;
+  position: relative;
+}
+
+.nav-item.logout::before {
+  border-radius: 50%;
+  border: 2px solid #ff5252;
+  content: '';
+  height: 24px;
+  position: absolute;
+  width: 24px;
+}
+
+.nav-item.logout::after {
+  border-right: 2px solid #ff5252;
+  border-top: 2px solid #ff5252;
+  content: '';
+  height: 12px;
+  position: absolute;
+  right: 8px;
+  transform: rotate(45deg);
+  width: 12px;
+}
+
+/* 激活状态样式 */
+.nav-item.active::before {
+  background-color: #26c6da;
+}
+
+.nav-item:hover::before {
+  transform: scale(1.1);
+}
+
+/* 中间列表区域样式 */
+.list-sidebar {
+  /* 3/16 */
+  border-right: 1px solid #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  width: 18.75%;
+}
+
+.list-header {
+  border-bottom: 1px solid #e6e6e6;
+  padding: 20px;
+}
+
+.list-header h3 {
+  color: #333;
+  font-size: 18px;
+  margin: 0;
+}
+
+.search-container {
+  border-bottom: 1px solid #e6e6e6;
+  padding: 15px;
+}
+
+.search-container input {
+  background-color: #f5f7f9;
+  border-radius: 20px;
+  border: 1px solid #e6e6e6;
+  font-size: 14px;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.search-container input:focus {
+  background-color: #fff;
+  border-color: #26c6da;
+  box-shadow: 0 0 0 3px rgba(38, 198, 218, 0.1);
+  outline: none;
+}
+
+.search-container input::placeholder {
+  color: #999;
+}
+
+/* 主聊天区域样式 */
+.chat-main {
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* 列表项样式 */
+.list-item {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  padding: 15px 20px;
+  transition: background-color 0.2s;
+}
+
+.list-item:hover {
+  background-color: #f5f7f9;
+}
+
+.list-item.selected {
+  background-color: #e3f2fd;
+}
+
+.chat-container.has-error {
+  padding-top: 40px;
+}
+
+/* 用户列表基础样式 */
+.users-list {
+  background-color: #f5f5f5;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 250px;
+}
+
+/* 用户列表标题样式 */
+.users-list h3 {
+  border-bottom: 1px solid #ddd;
+  margin: 0;
+  padding: 15px;
+}
+
+/* 用户列表项样式 */
+.user-item {
+  cursor: pointer;
+  padding: 15px;
+  transition: background-color 0.3s;
+}
+
+/* 用户列表项悬停效果 */
+.user-item:hover {
+  background-color: #e9ecef;
+}
+
+/* 用户列表项选中状态 */
+.user-item.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.chat-header {
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.header-title {
+  color: #333;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.header-button {
+  align-items: center;
+  background: #f5f7f9;
+  border-radius: 6px;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  gap: 6px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+.header-button:hover {
+  background: #e3f2fd;
+  color: #1976d2;
+  transform: translateY(-1px);
+}
+
+/* 消息区域 */
+.messages-container {
+  background: #f8f9fa;
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  max-width: 70%;
+}
+
+.message.sent {
+  align-items: flex-end;
+  margin-left: auto;
+}
+
+.message.received {
+  align-items: flex-start;
+  margin-right: auto;
+}
+
+.message-sender {
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-content {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 12px 16px;
+  position: relative;
+}
+
+.message.sent .message-content {
+  background: #1976d2;
+  color: white;
+}
+
+.message-text {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.message-time {
+  color: #999;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* 输入区域 */
+.message-form {
+  align-items: center;
+  background: #fff;
+  border-top: 1px solid #e6e6e6;
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+}
+
+.message-form input {
+  /* 为发送按钮留出空间 */;
+  background: #f8f9fa;
+  border-radius: 24px;
+  border: 1px solid #e6e6e6;
+  flex: 1;
+  font-size: 15px;
+  padding: 14px 24px;
+  transition: all 0.3s ease;
+  width: calc(100% - 60px);
+}
+
+.message-form input:focus {
+  background: #fff;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+  outline: none;
+}
+
+/* 发送按钮样式 */
+.message-form button {
+  align-items: center;
+  background: #1976d2;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  min-width: 36px;
+  padding: 0;
+  position: relative;
+  transition: all 0.3s ease;
+  width: 36px;
+}
+
+/* 创建发送图标 */
+.message-form button::before,
+.message-form button::after {
+  background: white;
+  content: '';
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+/* 上半部分三角形 */
+.message-form button::before {
+  /* 以右侧为旋转中心点 */
+  right: 50%;
+  /* 定位在按钮右侧的中间 */
+  top: 45%;
+  /* 定位在按钮垂直方向的45%处 */;
+  /* 旋转-45度并向左平移2px，创建斜线效果 */
+  transform-origin: right;
+  height: 2px;
+  transform: rotate(-45deg) translateX(-2px);
+  width: 12px;
+}
+
+/* 下半部分三角形 */
+.message-form button::after {
+  bottom: 45%;
+  height: 2px;
+  right: 50%;
+  transform-origin: right;
+  transform: rotate(45deg) translateX(-2px);
+  width: 12px;
+}
+
+.message-form button:hover {
+  background: #1565c0;
+  box-shadow: 0 2px 8px rgba(21, 101, 192, 0.3);
+  transform: scale(1.05);
+}
+
+.message-form button:active {
+  box-shadow: none;
+  transform: scale(0.95);
+}
+
+/* 悬浮时图标动画效果 */
+.message-form button:hover::before,
+.message-form button:hover::after {
+  width: 14px;
+}
+
+/* 消息入场动画：从略微下方淡入 */
+@keyframes slideIn {
+  /* 初始位置向下偏移10像素 */;
+  /* 初始完全透明 */
+    transform: translateY(10px);
+  /* 动画起始状态：完全透明，向下偏移10像素 */
+  from {
+    opacity: 0;
+}
+
+/* 动画结束状态：完全不透明，恢复原始位置 */
+  to {
+  /* 完全可见 */
+    transform: translateY(0);
+  /* 恢复到原始位置 */;
+  opacity: 1;
+}
+
+}
+
+.message {
+  animation: slideIn 0.3s ease;
+}
+
+/* 美化滚动条 */
+.messages-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+.no-chat-selected {
+  align-items: center;
+  color: #666;
+  display: flex;
+  flex: 1;
+  font-size: 18px;
+  justify-content: center;
+}
+
+.message-form input:disabled,
+.message-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.key-management-button {
+  border-top: 1px solid #ddd;
+  margin-top: auto;
+  padding: 15px;
+}
+
+.key-management-button button {
+  background-color: #6c757d;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  width: 100%;
+}
+
+.key-management-button button:hover {
+  background-color: #5a6268;
+}
+
+/* 添加群组相关样式 */
+.list-section {
+  margin-bottom: 20px;
+}
+
+.list-section h3 {
+  background-color: #f5f5f5;
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+  padding: 10px 15px;
+}
+
+.list-item {
+  cursor: pointer;
+  padding: 10px 15px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.list-header {
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.list-header:first-child {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+.list-header:not(:first-child) button {
+  background-color: #28a745;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  flex: 1;
+  padding: 8px;
+}
+
+.list-header:not(:first-child) button:hover {
+  background-color: #218838;
+}
+
+.message.sent .message-sender {
+  text-align: right;
+}
+
+.available-groups {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.available-group-item {
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.group-info {
+  flex: 1;
+}
+
+.group-info h4 {
+  margin: 0 0 5px 0;
+}
+
+.group-info p {
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 5px 0;
+}
+
+.available-group-item button {
+  background-color: #007bff;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 6px 12px;
+}
+
+.available-group-item button:hover {
+  background-color: #0056b3;
+}
+
+.no-groups {
+  color: #666;
+  padding: 20px;
+  text-align: center;
+}
+
+.modal-footer {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.message-alert {
+  animation: fadeIn 0.3s ease;
+  border-radius: 4px;
+  left: 50%;
+  padding: 10px 20px;
+  position: fixed;
+  top: 20px;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.message-alert.error {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.message-alert.success {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  transform: translate(-50%, -20px);
+}
+
+to {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+}
+
+/* 修改模态框样式，添加过渡效果 */
+.modal {
+  align-items: center;
+  animation: modalFadeIn 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.modal-content {
+  animation: modalContentSlideIn 0.3s ease;
+  background-color: white;
+  border-radius: 8px;
+  max-width: 500px;
+  min-width: 300px;
+  padding: 20px;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+}
+
+to {
+  opacity: 1;
+}
+
+}
+
+@keyframes modalContentSlideIn {
+  from {
+    transform: translateY(-20px);
+  opacity: 0;
+}
+
+to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+}
+
+.review-button {
+  background-color: #ffc107;
+  border-radius: 4px;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 6px 12px;
+}
+
+.review-button:hover {
+  background-color: #e0a800;
+}
+
+.member-info p {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+.approval-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.approval-buttons button {
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+}
+
+.approval-buttons button.approve {
+  background-color: #28a745;
+  color: white;
+}
+
+.approval-buttons button.reject {
+  background-color: #dc3545;
+  color: white;
+}
+
+.approval-buttons button:hover.reject {
+  background-color: #c82333;
+}
+
+.group-info-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.group-info-header h3 {
+  margin: 0;
+}
+
+.group-actions {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.members-button {
+  background-color: #17a2b8;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 6px 12px;
+}
+
+.members-button:hover {
+  background-color: #138496;
+}
+
+.member-item {
+  border-bottom: 1px solid #ddd;
+  padding: 15px;
+}
+
+.member-item:last-child {
+  border-bottom: none;
+}
+
+.member-info {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.member-role {
+  background-color: #e9ecef;
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 2px 6px;
+}
+
+.member-role:empty {
+  display: none;
+}
+
+.member-join-time {
+  color: #666;
+  font-size: 12px;
+}
+
+.review-button {
+  background-color: #ffc107;
+  border-radius: 4px;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  padding: 6px 12px;
+}
+
+.members-button,
+.review-button {
+  height: 32px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.group-management {
+  border-top: 1px solid #ddd;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.leave-button,
+.disband-button {
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  padding: 8px 16px;
+}
+
+.leave-button {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.modal-footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.member-actions {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.remove-member-button {
+  background-color: #dc3545;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+/* 添加新的个人信息相关样式 */
+.profile-container {
+  background-color: #fff;
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.profile-form {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 20px;
+}
+
+.profile-form label {
+  color: #495057;
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.profile-form input {
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 100%;
+}
+
+.profile-form input:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.profile-actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.profile-actions button {
+  background-color: #007bff;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+}
+
+.user-header h3 {
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* 修改列表内容区域样式，使其可滚动 */
+.list-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 10px;
+}
+
+/* 底部退出按钮容器 */
+.logout-container {
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  padding: 15px;
+}
+
+.logout-button {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  border-radius: 6px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 0;
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.logout-button:hover {
+  background: linear-gradient(135deg, #c0392b, #a93226);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+  transform: translateY(-2px);
+}
+
+.logout-button:active {
+  transform: translateY(0);
+}
+
+/* 列表项样式增强 */
+.item-avatar {
+  align-items: center;
+  background-color: #e3f2fd;
+  border-radius: 50%;
+  color: #26c6da;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  margin-right: 12px;
+  width: 40px;
+}
+
+.item-name {
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+/* 列表头部操作按钮 */
+.list-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.list-actions button {
+  background-color: #26c6da;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 6px 12px;
+}
+
+.header-actions button {
+  background-color: #f5f7f9;
+  border-radius: 4px;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 6px 12px;
+}
+
+/* 消息输入框样式优化 */
+.message-form {
+  background-color: #fff;
+  border-top: 1px solid #e6e6e6;
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+}
+
+.message-form input {
+  background-color: #f5f7f9;
+  border-radius: 20px;
+  border: 1px solid #e6e6e6;
+  flex: 1;
+  padding: 12px;
+}
+
+.message-form button {
+  background-color: #26c6da;
+  border-radius: 20px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0 20px;
+}
+
+/* 个人信息区域样式优化 */
+.profile-content {
+  padding: 20px;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.profile-actions button {
+  background-color: #26c6da;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  flex: 1;
+  padding: 10px;
+}
+
+/* 个人中心菜单样式 */
+.profile-menu {
+  border-bottom: 1px solid #e6e6e6;
+  display: flex;
+}
+
+.profile-menu .menu-item {
+  color: #666;
+  cursor: pointer;
+  flex: 1;
+  padding: 15px 0;
+  position: relative;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.profile-menu .menu-item i {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.profile-menu .menu-item span {
+  font-size: 14px;
+}
+
+.profile-menu .menu-item.active {
+  color: #26c6da;
+}
+
+.profile-menu .menu-item.active::after {
+  background-color: #26c6da;
+  bottom: 0;
+  content: '';
+  height: 2px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+/* 个人信息内容样式 */
+.profile-content {
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.user-info-content {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.info-item {
+  border-bottom: 1px solid #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.info-item label {
+  color: #999;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.info-item span {
+  color: #333;
+  font-size: 14px;
+}
+
+/* 群组内容区域样式 */
+.group-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.list-title {
+  border-bottom: 1px solid #f5f5f5;
+  color: #999;
+  font-size: 12px;
+  padding: 15px;
+}
+
+.list-item {
+  align-items: center;
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+  display: flex;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.users-list .item-name {
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.users-list .item-status {
+  color: #4caf50;
+  font-size: 12px;
+}
+
+/* 群聊功能按钮样式 */
+.header-button.leave-button {
+  background-color: #ff9800;
+  color: white;
+}
+
+.header-button.leave-button:hover {
+  background-color: #f57c00;
+}
+
+.header-button.dissolve-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.header-button.dissolve-button:hover {
+  background-color: #d32f2f;
+}
+
+.member-item {
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.member-action-btn {
+  background-color: #f44336;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.members-list {
+  margin: 10px 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* 无搜索结果样式 */
+.no-results {
+  color: #999;
+  font-size: 14px;
+  padding: 20px;
+  text-align: center;
+}
+
+.available-group-item {
+  align-items: center;
+  border-bottom: 1px solid #e6e6e6;
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+}
+
+.group-info h4 {
+  color: #333;
+  font-size: 15px;
+  margin: 0 0 5px 0;
+}
+
+.group-info p {
+  color: #666;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* 申请加入按钮样式 */
+.available-group-item button {
+  background-color: #1976d2;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  min-width: 80px;
+  padding: 6px 12px;
+  transition: all 0.3s ease;
+}
+
+.available-group-item button:hover {
+  background-color: #1565c0;
+  transform: translateY(-1px);
+}
+
+/* 上半部分三角形 */
+.message-form button::before {
+  height: 2px;
+  right: 50%;
+  top: 45%;
+  transform-origin: right;
+  transform: rotate(-45deg) translateX(-2px);
+  width: 12px;
+}
+
+/* 添加消息动画效果 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+  transform: translateY(10px);
+}
+
+/* 添加群组相关样式 */
+/* 列表分组样式 */
+.list-section {
+  /* 分组之间添加垂直间距 */;
+  margin-bottom: 20px;
+}
+
+/* 分组标题样式 */
+.list-section h3 {
+  /* 内边距 */
+  margin: 0;
+  /* 字体大小 */
+  color: #666;
+  /* 文字颜色 */
+  background-color: #f5f5f5;
+  /* 浅灰色背景 */;
+  /* 移除默认外边距 */
+  font-size: 14px;
+  padding: 10px 15px;
+}
+
+/* 列表项基础样式 */
+.list-item {
+  /* 内边距 */
+  cursor: pointer;
+  /* 相对定位 */
+  padding: 10px 15px;
+  /* 背景颜色变化过渡效果 */
+  /* 鼠标悬停变为手型 */
+  transition: background-color 0.3s;
+  position: relative;
+}
+
+/* 列表项悬停效果 */
+.list-item:hover {
+  /* 悬停时浅灰色背景 */
+  background-color: #e9ecef;
+}
+
+/* 列表项选中状态 */
+.list-item.selected {
+  /* 选中时白色文字 */
+  /* 选中时蓝色背景 */
+  color: white;
+  background-color: #007bff;
+}
+
+/* 列表头部容器样式 */
+.list-header {
+  /* 内边距 */
+  border-bottom: 1px solid #ddd;
+  /* 子元素间隔 */
+  padding: 10px;
+  /* 底部分隔线 */;
+  /* 弹性布局 */
+  gap: 10px;
+  display: flex;
+}
+
+/* 第一个列表头部按钮样式 */
+.list-header:first-child button {
+  /* 内边距 */
+  background-color: #6c757d;
+  /* 圆角 */
+  cursor: pointer;
+  /* 宽度100% */
+  padding: 8px;
+  /* 无边框 */
+  border-radius: 4px;
+  /* 灰色背景 */
+  color: white;
+  /* 白色文字 */
+  border: none;
+  /* 鼠标悬停变为手型 */;
+  width: 100%;
+}
+
+/* 第一个列表头部按钮悬停效果 */
+.list-header:first-child button:hover {
+  /* 深一点的灰色 */
+  background-color: #5a6268;
+}
+
+/* 其他列表头部按钮样式 */
+.list-header:not(:first-child) button {
+  /* 均匀分配空间 */
+  padding: 8px;
+  /* 绿色背景 */
+  color: white;
+  background-color: #28a745;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+}
+
+/* 其他列表头部按钮悬停效果 */
+.list-header:not(:first-child) button:hover {
+  /* 深一点的绿色 */
+  background-color: #218838;
+}
+
+/* 消息发送者样式 */
+.message-sender {
+  /* 小字体 */
+  color: #666;
+  /* 底部外边距 */;
+  /* 灰色文字 */
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+/* 可用群组列表容器 */
+.available-groups {
+  /* 最大高度 */
+  overflow-y: auto;
+  /* 超出部分可滚动 */;
+  max-height: 400px;
+}
+
+/* 可用群组项样式 */
+.available-group-item {
+  /* 两端对齐 */
+  align-items: center;
+  /* 垂直居中 */;
+  /* 底部分隔线 */
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+/* 消息提醒动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+
+to {
+  /* 恢复原始位置 */
+  /* 最终完全不透明 */
+    transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+}
+
+/* 审核按钮样式 */
+.review-button {
+  /* 内边距 */
+  background-color: #ffc107;
+  /* 圆角 */
+  cursor: pointer;
+  /* 左侧外边距 */
+  padding: 6px 12px;
+  /* 无边框 */
+  border-radius: 4px;
+  /* 黄色背景 */
+  color: #000;
+  /* 黑色文字 */
+  border: none;
+  /* 鼠标悬停变为手型 */;
+  margin-left: 10px;
+}
+
+/* 待审核成员项样式 */
+.pending-member-item {
+  /* 两端对齐 */
+  align-items: center;
+  /* 内边距 */
+  border-bottom: 1px solid #ddd;
+  /* 垂直居中 */
+  /* 底部分隔线 */
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+/* 成员信息标题样式 */
+.member-info h4 {
+  /* 外边距，底部5px */
+  margin: 0 0 5px 0;
+}
+
+/* 成员信息描述样式 */
+.member-info p {
+  /* 字体大小 */
+  /* 无外边距 */
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* 审批按钮容器 */
+.approval-buttons {
+  /* 弹性布局 */
+  gap: 10px;
+  /* 按钮间隔 */;
+  display: flex;
+}
+
+/* 审批按钮基础样式 */
+.approval-buttons button {
+  /* 内边距 */
+  border: none;
+  /* 圆角 */
+  cursor: pointer;
+  /* 无边框 */
+  border-radius: 4px;
+  /* 鼠标悬停变为手型 */
+  padding: 6px 12px;
+}
+
+/* 通过按钮样式 */
+.approval-buttons button.approve {
+  /* 白色文字 */
+  /* 绿色背景 */
+  color: white;
+  background-color: #28a745;
+}
+
+/* 拒绝按钮样式 */
+.approval-buttons button.reject {
+  /* 白色文字 */
+  /* 红色背景 */
+  color: white;
+  background-color: #dc3545;
+}
+
+/* 拒绝按钮悬停效果 */
+.approval-buttons button:hover.reject {
+  /* 深一点的红色 */
+  background-color: #c82333;
+}
+
+/* 无待审核成员提示样式 */
+.no-pending {
+  /* 内边距 */
+  color: #666;
+  /* 文字居中 */
+  padding: 20px;
+  /* 灰色文字 */;
+  text-align: center;
+}
+
+/* 群组信息头部容器 */
+.group-info-header {
+  /* 两端对齐 */
+  align-items: center;
+  /* 垂直居中 */;
+  /* 弹性布局 */
+  justify-content: space-between;
+  display: flex;
+}
+
+/* 群组信息头部标题 */
+.group-info-header h3 {
+  margin: 0;
+}
+
+/* 群组操作容器 */
+.group-actions {
+  /* 垂直居中 */
+  /* 弹性布局 */
+  gap: 10px;
+  /* 操作按钮间隔 */
+  align-items: center;
+  display: flex;
+}
+
+/* 成员列表按钮样式 */
+.members-button {
+  /* 内边距 */
+  background-color: #17a2b8;
+  /* 圆角 */
+  cursor: pointer;
+  /* 无边框 */
+  border-radius: 4px;
+  /* 白色文字 */
+  border: none;
+  /* 蓝绿色背景 */
+  color: white;
+  /* 鼠标悬停变为手型 */;
+  padding: 6px 12px;
+}
+
+/* 群组管理区域 */
+.group-management {
+  /* 顶部内边距 */
+  border-top: 1px solid #ddd;
+  /* 顶部分隔线 */;
+  /* 顶部外边距 */
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+/* 群组头像 */
+.group-avatar {
+  align-items: center;
+  background-color: #4a90e2;
+  border-radius: 6px;
+  color: white;
+  display: flex;
+  flex-shrink: 0;
+  font-size: 16px;
+  font-weight: 500;
+  height: 40px;
+  justify-content: center;
+  margin-right: 12px;
+  width: 40px;
+}
+
+/* 群组操作按钮基础样式 - 用于离开和解散群组的按钮 */
+.leave-button,
+.disband-button {
+  /* 内部间距，提供合适的点击区域 */
+  border: none;
+  /* 右侧外边距，防止按钮紧贴 */;
+  /* 圆角 */
+  cursor: pointer;
+  /* 移除默认边框 */
+  border-radius: 4px;
+  /* 鼠标悬停时变为手型，表示可交互 */
+  margin-right: 10px;
+  height:35px;
+  padding: 8px 16px;
+  width: 100px;
+}
+
+/* 模态框底部样式 */
+.modal-footer {
+  /* 使用弹性布局，便于内部元素排列 */
+  justify-content: space-between;
+  /* 垂直方向居中对齐 */;
+  /* 子元素两端对齐，均匀分布空间 */
+  align-items: center;
+  /* 顶部外边距，与上方内容保持距离 */
+  display: flex;
+  margin-top: 20px;
+}
+
+/* 成员操作区域样式 */
+.member-actions {
+  /* 使用弹性布局 */
+  justify-content: space-between;
+  /* 垂直方向居中对齐 */
+  margin-top: 5px;
+  /* 子元素两端对齐 */
+  align-items: center;
+  /* 顶部外边距，与上方内容有小间隔 */;
+  display: flex;
+}
+
+/* 移除按钮样式 */
+.remove-member-button {
+  background-color: #dc3545;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px 8px;
+  width: 50px;
+}
